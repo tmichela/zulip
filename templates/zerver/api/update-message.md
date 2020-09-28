@@ -9,6 +9,40 @@
 
 {generate_code_example(python)|/messages/{message_id}:patch|example}
 
+A helper method `move_topic` makes it convenient to move messages across `topics` and
+`streams`. Arguments are:
+
+stream: str
+    Name of the old stream
+
+new_stream: str
+    Name of the new stream
+
+topic: str
+    Name of the old topic
+
+new_topic: str, optional
+    Name of the new topic (same as old topic if not provided)
+
+message_id: int, optional
+    Use to select part of the messages in a topic (see propagate_mode). Default
+    behavior selects the last message in the topic
+
+propagate_mode: str, optional, default: 'change_all'
+    Affect all messages in the topic: 'change_all'
+    Affect selected message (message_id): 'change_one'
+    Affect all messages after selected message: 'change_after'
+
+notify_old_topic: bool, default: True
+
+notify_new_topic: bool, default: True
+
+```python
+    # move all messages from topic 'Slot' in stream 'Danemark' to topic 'Slott' in
+    # stream 'Sweden'
+    result = client.move_topic('Denemark', 'Sweden', 'Slot', 'Slott')
+```
+
 {tab|js}
 
 More examples and documentation can be found [here](https://github.com/zulip/zulip-js).
